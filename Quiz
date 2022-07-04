@@ -1,0 +1,56 @@
+package i3.logic;
+import java.util.Scanner;
+public class Quiz {
+Scanner s = new Scanner(System.in);
+private int maxMarks;
+private int [] marks;
+private int totalStudents;
+public Quiz( int maxMarks, int totalStudents)
+{
+this.maxMarks = maxMarks;
+this.marks = new int[totalStudents];
+this.totalStudents = totalStudents;
+}
+//add marks in List
+public void addMarks()
+{
+System.out.println("Enter the marks of
+"+totalStudents+" students");
+for(int i=0;i< totalStudents;i++)
+{
+marks[i] = s.nextInt();
+}
+}
+//display method
+public void displayDetails()
+{
+System.out.println("Maximum Marks of quiz is:
+"+maxMarks);
+System.out.println("Total no of Students are:
+"+totalStudents);
+System.out.println("Scores are:");
+for(int i=0;i<totalStudents;i++)
+{
+System.out.println("Student "+(i+1)+ "
+:"+marks[i]);
+}
+}
+}
+MAIN CLASS
+package i3.client;
+import java.util.Scanner;
+import i3.logic.Quiz;
+public class QuizMain {
+public static void main(String[] args) {
+int no=0,marks=0;
+Scanner s = new Scanner(System.in);
+System.out.println("Enter the no of Students");
+no = s.nextInt();
+System.out.println("Enter the maximum marks of
+quiz");
+marks = s.nextInt();
+Quiz q = new Quiz(marks,no);
+q.addMarks();
+q.displayDetails();
+}
+}
