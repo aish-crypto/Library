@@ -1,0 +1,66 @@
+CDPlayer class:
+package i3.logic;
+public class CDPlayer {
+private boolean hasCD;
+private PlayerState playState=PlayerState.Stop;
+public CDPlayer(boolean hasCD) {
+this.hasCD=hasCD;
+}
+public void selectPlay() {
+if(hasCD==true) {
+if(playState==playState.Pause || playState==playState.Stop ) {
+System.out.println("CD is playing");
+this.playState=PlayerState.Play;
+}
+else {
+System.out.println("CD is aleady playing \n Your state is invalid");
+
+}}
+else
+System.out.println("Insert CD in the player");
+}
+
+public void selectPause() {
+if(hasCD==true) {
+if(playState==playState.Play) {
+System.out.println("Your CD player is paused");
+this.playState=PlayerState.Pause;
+}}
+else
+System.out.println("Insert CD in the player");
+}
+public void selectStop() {
+if(hasCD==true) {
+if(playState==playState.Play || playState==playState.Pause) {
+System.out.println("Your CD player is stopped");
+this.playState=PlayerState.Stop;
+}}
+else
+System.out.println("Insert CD in the player");
+}
+}
+
+PlayerState Enum
+package i3.logic;
+public enum PlayerState {
+Stop,Play,Pause
+}
+
+Test class
+package i3.client;
+import i3.logic.CDPlayer;
+public class TestCDPlayer {
+	public static void main(String args[]) {
+CDPlayer cd = new CDPlayer(false);
+cd.selectPlay();
+cd.selectPause();
+cd.selectPlay();
+cd.selectStop();
+CDPlayer cd1 = new CDPlayer(true);
+cd1.selectPlay();
+cd1.selectPause();
+cd1.selectPlay();
+cd1.selectStop();
+	}
+}
+
