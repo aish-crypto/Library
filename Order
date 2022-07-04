@@ -1,0 +1,95 @@
+package i2.client;
+import i2.logic.Item;
+import i2.logic.Order;
+public class TestMain {
+ 
+ 	public static void main(String[] args) {
+     	Item i1=new Item(101,1000,2);
+     	Item i2=new Item(102,500,5);
+     	Item i3=new Item(103,1500,1);
+     	Order order=new Order(50);
+     	order.addItems(i1);
+     	order.addItems(i2);
+     	order.addItems(i3);
+     	order.displayOrderDetails();
+ 	}
+ 
+}
+ 
+//Order Class
+package i2.logic;
+ 
+import java.util.ArrayList;
+ 
+public class Order {
+   	private ArrayList<Item> item;
+   	private int orderNumber;
+   	private int total;
+   	public Order(int orderNumber) {
+       this.orderNumber=orderNumber;
+       this.total=0;
+       item=new ArrayList<>();
+   	}
+   	public void addItems(Item im) {
+       item.add(im);
+   	}
+   	public void displayItems() {
+       for(int i=0;i<item.size();i++) {
+       	   item.get(i).displayItemDetails();
+       }
+   	}
+   	public int calculateTotal() {
+       for(int i=0;i<item.size();i++) {
+       	   total=total+item.get(i).getSubtotal();
+       }
+       return total;
+   	}
+   	public int getTotal() {
+       return calculateTotal();
+   	}
+   	public void setTotal(int total) {
+       this.total=total;
+   	}
+   	public void displayOrderDetails() {
+       System.out.println("Order Number:"+this.orderNumber);
+       System.out.println();
+       System.out.println("\t::Item Details::");
+       System.out.println("Item Code\tPrice \tQuantity\tSubtotal");
+       displayItems();
+       System.out.println();
+       System.out.println("Total:"+getTotal());
+   	}
+} 
+//Item Class
+package i2.logic;
+ 
+public class Item {
+          private int itemCode;
+ 	private int price;
+ 	private int quantity;
+ 	private int subtotal;
+ 
+ 	public Item(int itemCode, int price, int quantity) {
+       	this.itemCode = itemCode;
+       	this.price = price;
+       	this.quantity = quantity;
+       	this.subtotal = 0;
+ 	}
+ 
+ 	public int calculateSubtotal() {
+       	subtotal=this.price*this.quantity;
+       	return subtotal;
+ 	}
+ 
+ 	public int getSubtotal() {
+       	return calculateSubtotal();
+ 	}
+ 
+ 	public void setSubtotal(int subtotal) {
+       	this.subtotal = subtotal;
+ 	}
+ 
+ 	public void displayItemDetails() {
+       	System.out.println( this.itemCode+"\t\t"+this.price+"\t"+this.quantity+"\t\t"+getSubtotal());
+ 	}
+}
