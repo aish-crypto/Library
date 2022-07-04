@@ -1,0 +1,176 @@
+package i1.logic;
+import java.util.*;
+public class Library {
+           	private ArrayList<Book>bk;
+  
+           	public Library(Book book) {
+                          	this.bk = new ArrayList<Book>();
+           	
+           	}         	
+ 
+           	public boolean search(Book book){
+           	return this.bk.contains(book);
+ 	
+	       	
+ 
+           	}
+           	
+           	
+           	public void addBook(Book book){
+                          	
+                          	bk.add(book);
+                          	book.setState(BookState.bookavailable);
+                          	
+                          	
+           	}
+           	public void checkedout(Member m,Book book){
+           	if(book.getState()==BookState.bookavailable){
+                          	System.out.println();
+           	}
+                          	book.setM(m);
+                          	book.setState(BookState.bookWithMember);
+  	System.out.println(book.getTitle()+" is in state  "+book.getState());
+                          	
+                          	
+           	}
+           	public void checkin(Book book){
+                          	if(book.getState()==BookState.bookunavailable){
+                                         	
+                                         	System.out.println("Member cannot check in.");
+                                         	
+                          	}else{
+                                         	book.setM(null);
+                                         	
+                                         	book.setState(BookState.bookunavailable);
+                          	}
+                          	
+                          	
+                          	
+           	}
+           	
+           	public void removeBook(Book book)
+           	{
+                          	bk.remove(book);
+           		book.setState(BookState.bookunavailable);
+                          	
+                          	
+           	}
+           	
+}
+ 
+class Book:
+package i1.logic;
+ 
+public class Book {
+ 
+           	private String title;
+           	private int price;
+           	private BookState state;
+           	private Member m;
+           	public Book(String title, int price) {
+                          	super();
+                          	this.title = title;
+                          	this.price = price;
+                          	
+           	}
+           	
+           	public void setState(BookState state) {
+                          	this.state = state;
+           	}
+ 
+           	public Book(Member m){
+                          	this.m=m;
+                          	
+                          	this.state=null;
+           	}
+           	
+           	public String getTitle() {
+                          	return title;
+           	}
+ 
+           	public int getPrice() {
+                          	return price;
+           	}
+ 
+           	public BookState getState() {
+                          	return state;
+           	}
+ 
+           	public Member getM() {
+                          	return m;
+           	}
+ 
+           	public void setM(Member m) {
+                          	this.m = m;
+           	}
+ 
+           	
+           	
+}
+ 
+class BookState:
+package i1.logic;
+ 
+public enum BookState {
+ 
+           	bookavailable,
+           	bookunavailable,
+           	bookWithMember
+ 
+           	//enum r constant string checked case wise ----case sensitive
+           	
+           	
+}
+ 
+ 
+class Member:
+package i1.logic;
+ 
+public class Member {
+ 
+           	private int memberId;
+           	private String name;
+           	public Member(int memberId, String name) {
+                          	super();
+                          	this.memberId = memberId;
+                          	this.name = name;
+           	}
+           	public int getMemberId() {
+                          	return memberId;
+           	}
+           	public String getName() {
+                          	return name;
+           	}
+           	
+           	
+           	
+}
+ 
+ 
+ 
+ 
+class Test:
+package i1.client;
+import i1.logic.*;
+public class Test {
+ 
+           	public static void main(String[]args){
+                          	
+                          	Member mb= new Member(127,"Isha");
+                          	Book h = new Book("Harry Potter",79);
+           		
+                          	Library bks = new Library(h);
+                          	bks.addBook(h);
+                          	
+                          	bks.checkedout(mb, h);
+                          	bks.checkin(h);
+                          	System.out.println("Book is available: "+bks.search(h));
+ 
+                          	
+                          	
+           	}
+           	
+}
+ 
+ 
+ 
