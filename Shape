@@ -1,1 +1,134 @@
+public class Shape {
+	private String outlineColour;
+	private String fillColour;
 
+	public Shape(String outlineColour, String fillColour) {
+		this.fillColour = fillColour;
+		this.outlineColour = outlineColour;
+	}
+
+	public String getOutlineColour() {
+		return this.outlineColour;
+	}
+
+	public String getFillColour() {
+		return this.fillColour;
+	}
+
+	public void displayShapeDetails() {
+		System.out.println("Outline Colour\t   :" + this.outlineColour);
+		System.out.println("Fill Colour   \t   :" + this.fillColour);
+	}
+}
+public class Circle extends Shape {
+	private double radius;
+	private double area;
+	private double perimeter;
+
+	public Circle(String outlineColour, String fillColour, double radius) {
+		super(outlineColour, fillColour);
+		this.radius = radius;
+	}
+
+	public double getRadius() {
+		return this.radius;
+	}
+
+	public double calculateAreaOfCircle() {
+		area = 3.142 * radius * radius;
+		return area;
+	}
+
+	public double calculatePerimeterOfCircle() {
+		perimeter = 2 * 3.142 * radius;
+		return perimeter;
+	}
+
+	public void displayCircleDetails() {
+		System.out.println("\t::Circle::");
+		System.out.println("===========================================");
+		super.displayShapeDetails();
+		System.out.println("Area Of Circle\t   :" + calculateAreaOfCircle());
+		System.out.println("Perimeter Of Circle:" + calculatePerimeterOfCircle());
+		System.out.println("===========================================");
+	}
+}
+public class Triangle extends Shape {
+	private double base;
+	private double height;
+	private double area;
+	private double perimeter;
+
+	public Triangle(String outlineColour, String fillColour, double base, double height) {
+		super(outlineColour, fillColour);
+		this.base = base;
+		this.height = height;
+	}
+
+	public double getBase() {
+		return this.base;
+	}
+
+	public double getHeight() {
+		return this.height;
+	}
+
+	public double calculateAreaOfTriangle() {
+		area = 0.5 * base * height;
+		return area;
+	}
+
+	public double calculatePerimeterOfTriangle() {
+		perimeter = 3 * base;
+		return perimeter;
+	}
+
+	public void displayTriangleDetails() {
+		System.out.println("\t::Triangle::");
+		System.out.println("===========================================");
+		super.displayShapeDetails();
+		System.out.println("Area Of Triangle     :" + calculateAreaOfTriangle());
+		System.out.println("Perimeter Of Triangle:" + calculatePerimeterOfTriangle());
+		System.out.println("===========================================");
+	}
+
+}
+public class Rectangle extends Shape {
+	private double length;
+	private double breadth;
+	private double area;
+	private double perimeter;
+
+	public Rectangle(String outlineColour, String fillColour, double length, double breadth) {
+		super(outlineColour, fillColour);
+		this.length = length;
+		this.breadth = breadth;
+	}
+
+	public double getLength() {
+		return this.length;
+	}
+
+	public double getBreadth() {
+		return this.breadth;
+	}
+
+	public double calculateAreaOfRectangle() {
+		area = length * breadth;
+		return area;
+	}
+
+	public double calculatePerimeterOfRectangle() {
+		perimeter = 2 * (length + breadth);
+		return perimeter;
+	}
+
+	public void displayRectangleDetails() {
+		System.out.println("\t::Rectangle::");
+		System.out.println("===========================================");
+		super.displayShapeDetails();
+		System.out.println("Area Of Rectangle     :" + calculateAreaOfRectangle());
+		System.out.println("Perimeter Of Rectangle:" + calculatePerimeterOfRectangle());
+		System.out.println("===========================================");
+	}
+}
