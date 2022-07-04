@@ -1,0 +1,201 @@
+public class Product {
+ 
+        	private String pName;
+        	private double pPrice;
+        	private double pTax;
+        	private double pTotalPrice;
+        	
+        	
+        	public Product(String pName,double pPrice, double pTax)
+        	{
+                    	this.pName=pName;
+        		this.pTax=pTax;
+                    	this.pPrice=pPrice;
+        	}
+        	
+        	public String getName() {
+                    	return this.pName;
+        	}
+        	
+        	public double getPprice() {
+                    	return this.pPrice;
+        	}
+        	
+        	
+        	public double getTaxPaidInEachMonth() {
+                    	return this.pPrice*this.pTax;
+        	}
+        	
+        	public double getTotalPriceOfEachProduct() {
+                    	double taxPaid=getTaxPaidInEachMonth();
+                    	return taxPaid+this.pPrice;
+                                            	
+        	}
+}
+  //  class of i1.logic package
+ 
+package i1.logic;
+ 
+public class Shop {
+        	
+        	private Product product;
+ 
+        	public Shop(Product product) {
+                    	this.product=product;
+                    	
+        	}
+        	public Product getProduct() {
+                    	return product;
+        	}
+        	
+}
+ 
+ 
+ 
+//TestShop class of i1.client  package
+ 
+package i1.client;
+import i1.logic.*;
+import java.util.Scanner;
+public class TestMain {
+        	
+                    	public static void main(String[] args) {
+    		Scanner sc=new Scanner(System.in);
+                                	Product p[]=new Product[4];
+                                	Shop s[]=new Shop[4];
+        	
+                                	int i=0;
+                                	p[i]=   new Product("file", 60, 12);
+                                	p[i+1]= new Product("Dairy", 300, 5);
+                                	p[i+2]= new Product("Pencil", 20, 2);
+                                	p[i+3]= new Product("Ball pen ", 10, 2);
+                    		
+                                	for(i=0;i<4;i++) {
+                                            	s[i]= new Shop(p[i]);
+                                	}                                	
+                                	System.out.println("  	                  Bill  ");
+                                	System.out.println("--------------------------------------------------------------------");
+                                	System.out.println(" pNo  |  Name	|	Price    |   TaxPaid	|   TotalPrice ");
+                                	System.out.println("--------------------------------------------------------------------");
+                                	
+                                	for(i=0;i<4;i++) {
+                                            	
+                                            	System.out.println((i+1)+"   	"+s[i].getProduct().getName() + "     	" + s[i].getProduct().getPprice()+"           "+s[i].getProduct().getTaxPaidInEachMonth()+ "              "+s[i].getProduct().getTotalPriceOfEachProduct() );
+                    	    	System.out.println("");
+                                	}
+                                	
+                                	System.out.println("-------------------------------------------------------------------");                                      	
+                    	
+                    	}
+        	
+} 
+
+package logic;
+import java.util.ArrayList;
+public class Shop {
+private ArrayList<Product> product;
+double total;
+public Shop() {
+	product = new ArrayList<>();
+	int total;;
+}
+public void DisplayShopItems() {
+	for(int i=0;i<product.size();i++) {
+		product.get(i).displayItemDetails();
+	}
+}
+	public void add(Product p) {
+	       this.product.add(p);
+	}
+
+	
+	public void remove(Product p) {
+       this.product.remove(p);
+}
+	public double calcuateTotal() {
+		for(int i=0;i<product.size();i++) {
+			Product p= product.get(i);
+			total=total + p.totalPriceE() ;
+		}
+			return total;
+		}
+	
+  public double getGrandT() {
+	  return  calcuateTotal();
+  }
+  
+  public void getGrand() {
+	 System.out.println("Grand Total is  "+ getGrandT());
+  }
+}
+package logic;
+
+public class Product {
+String pname;
+double pprice;
+double ptax;
+double totalprice;
+public Product(String pname, double pprice, double ptax) {
+	super();
+	this.pname = pname;
+	this.pprice = pprice;
+	this.ptax = ptax;
+	totalprice =0;
+}
+public String getPname() {
+	return pname;
+}
+public void setPname(String pname) {
+	this.pname = pname;
+}
+public double getPprice() {
+	return pprice;
+}
+public void setPprice(double pprice) {
+	this.pprice = pprice;
+}
+public double getPtax() {
+	return ptax;
+}
+public void setPtax(double ptax) {
+	this.ptax = ptax;
+}
+public double getTotalprice() {
+	return totalprice;
+}
+public void setTotalprice(double totalprice) {
+	this.totalprice = totalprice;
+}
+public double getTaxPaid() {
+	return this.pprice*this.ptax;
+}
+public double totalPriceE() {
+	double ttax = getTaxPaid();
+	return ttax+this.pprice;
+}
+   public void displayItemDetails() {
+	   System.out.println("Product Name:" + pname);
+	   System.out.println("Product Price:"+ pprice);
+	   System.out.println("Tax Paid:"+ getTaxPaid());
+	   System.out.println("Total Price:"+ totalPriceE());
+   }
+}
+package client;
+import logic.Product;
+import logic.Shop;
+public class Test {
+	public static void main (String args[]) {
+ Shop s= new Shop();
+ Product p1= new Product("Eraser",56,9);
+ Product p2= new Product("Pencil",78,8);
+ Product p3= new Product("Scale",45,7);
+s.add(p1);
+s.add(p2);
+s.add(p3);
+s.DisplayShopItems();
+s.getGrand();
+	}
+}
+
+
+
