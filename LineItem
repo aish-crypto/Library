@@ -1,0 +1,84 @@
+public class LineItem {
+private String itemName;
+private double itemPricePerUnit;
+private int quantity;
+private double subtotal;
+public LineItem(String itemName,double itemPricePerUnit, int quantity ) {
+super();
+this.itemName=itemName;
+this.itemPricePerUnit=itemPricePerUnit;
+this.quantity=quantity;
+}
+public String getItemName() {
+return itemName;
+}
+public int getQuantity() {
+return quantity;
+}
+public double getItemPricePerUnit() {
+return itemPricePerUnit;
+}
+public double getSubtotal() {
+return ComputeSubtotal();
+}
+public double ComputeSubtotal() {
+subtotal=itemPricePerUnit*quantity;
+return subtotal;
+}
+public void displayLineItemDetails() {
+System.out.println("===================================================");
+System.out.println("ItemName : "+getItemName());
+System.out.println("ItemPricePerUnit : "+getItemPricePerUnit());
+System.out.println("Quantity : "+getQuantity());
+System.out.println("Subtotal : "+getSubtotal());
+System.out.println("===================================================");
+}
+}
+//BILL CLASS
+package i3.logic;
+public class Bill {
+private double grandTotal;
+private LineItem[]list=new LineItem[3];
+public Bill(LineItem[]list) {
+for(int i=0;i<list.length;i++) {
+this.list[i]=list[i];
+}
+}
+public double computeGrandTotal() {
+for(int i=0;i<list.length;i++) {
+grandTotal=grandTotal+list[i].getSubtotal();
+}
+return grandTotal;
+}
+public double getGrandTotal() {
+return computeGrandTotal();
+}
+public void displayBillDetails() {
+System.out.println("Grand Total: "+getGrandTotal());
+System.out.println("===================================================");
+}
+}
+//MAIN CLASS
+package i3.client;
+import i3.logic.*;
+public class TesterProgram {
+public static void main(String[]args) {
+System.out.println("****BILL****");
+System.out.println("===================================================");
+System.out.println("Line Item 1");
+LineItem li1=new LineItem("Pen", 10, 2);
+li1.displayLineItemDetails();
+System.out.println("Line Item 2");
+LineItem li2=new LineItem("Notebook", 50, 2);
+li2.displayLineItemDetails();
+System.out.println("Line Item 3");
+LineItem li3=new LineItem("Pencil", 3, 10);
+li1.displayLineItemDetails();
+LineItem[]list=new LineItem[3];
+list[0]=li1;
+list[1]=li2;
+list[2]=li3;
+Bill b=new Bill(list);
+b.displayBillDetails();
+}
+}
