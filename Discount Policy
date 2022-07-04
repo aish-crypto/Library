@@ -1,0 +1,175 @@
+public class Bill {
+	private LineItem[] noOfLineItem;
+	private double BillnetPayableAmount;
+	private int totalLineItem;
+
+	public Bill(int cnt) {
+		this.totalLineItem = cnt;
+		noOfLineItem = new LineItem[totalLineItem];
+		BillnetPayableAmount = 0;
+	}
+
+	public double calculateBillNetPayableAmount() {
+		for (int i = 0; i < totalLineItem; i++) {
+			this.noOfLineItem[i] = new LineItem();
+			//BillnetPayableAmount = BillnetPayableAmount + noOfLineItem[i].;
+
+		}
+		return BillnetPayableAmount;
+	}
+}
+
+public class BulkDiscount extends DiscountPolicy {
+	private int minimumQuantity;
+	private double percentDiscount;
+
+	public BulkDiscount(int minimumQuantity, double percentDiscount) {
+		//super(minimumQuantity, percentDiscount);
+		this.minimumQuantity = minimumQuantity;
+		this.percentDiscount = percentDiscount;
+
+	}
+
+	public double computeDiscount(int noOfItems, double itemCost) {
+        if(noOfItems>minimumQuantity) {
+        	return (this.percentDiscount*itemCost)/100;
+        }
+        else{
+        	return 0;	
+        }
+	}
+}
+public class BuyNItemsGetOneFree extends DiscountPolicy {
+	int n;
+
+	public BuyNItemsGetOneFree(int n) {
+		this.n = n;
+	}
+
+	public double computeDiscount(int noOfItems, double itemCost) {
+		if ((noOfItems / n) >= 1) {
+			noOfItems = noOfItems / n;
+			return 10.0 * noOfItems;
+		}
+		return (10.0 * 0);
+	}
+
+}
+public abstract class DiscountPolicy {
+	public abstract double computeDiscount(int noOfItems, double itemCost);
+}
+public class Item {
+	private String itemName;
+	private double itemCost;
+	private DiscountPolicy d;
+
+	public Item(String itemName, double itemCost) {
+		this.itemName = itemName;
+		this.itemCost = itemCost;
+		this.setDiscountPolicy(d);
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public double getItemCost() {
+		return itemCost;
+	}
+
+	public void setItemCost(double itemCost) {
+		this.itemCost = itemCost;
+	}
+
+	public DiscountPolicy getDiscountPolicy() {
+		return d;
+	}
+
+	public void setDiscountPolicy(DiscountPolicy d) {
+		this.d = d;
+	}
+
+	public void displayItemDetails() {
+		System.out.println("Item Name: " + this.itemName);
+		System.out.println("Item Cost: " + this.itemCost);
+	}
+}
+public class LineItem {
+
+	private Item item;
+	private int itemCount;
+	private double netPayableAmount;
+	private int cnt;
+	private double total;
+
+	public double getTotal() {
+		return total;
+	}
+
+	public LineItem(Item item, int itemCount) {
+		this.item = item;
+		this.itemCount = itemCount;
+		netPayableAmount = 0;
+		cnt = 0;
+		total=0;
+	}
+
+	public LineItem() {
+
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public double getNetPayableAmount() {
+		return netPayableAmount;
+	}
+
+	public void setNetPayableAmount(double netPayableAmount) {
+		this.netPayableAmount = netPayableAmount;
+	}
+
+	public int getItemCount() {
+		return itemCount;
+	}
+
+	public void setItemCount(int itemCount) {
+		this.itemCount = itemCount;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public double calculateNetPayableAmount() {
+		double totalAmount = this.item.getItemCost() * this.itemCount;
+		double discount = this.item.getDiscountPolicy().computeDiscount(this.itemCount, this.item.getItemCost());
+		netPayableAmount = totalAmount - (this.itemCount * discount);
+		total=total+netPayableAmount;
+		setNetPayableAmount(netPayableAmount);
+		cnt++;
+		setCnt(cnt);
+		return netPayableAmount;
+	}
+	public void displayLineItemDetails() {
+		item.displayItemDetails();
+		System.out.println("No Of Items:"+itemCount);
+		System.out.println("Discount Obtained:"+item.getDiscountPolicy().computeDiscount(itemCount, item.getItemCost()));
+		System.out.println("Payable Amount:"+netPayableAmount);
+		System.out.println("==========================================================");
+	}
+
+}
