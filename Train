@@ -1,0 +1,71 @@
+package i3.client;
+import i3.logic.Yard;
+import i3.logic.Train;
+public class TestYardTrain {
+
+	public static void main(String[] args) {
+		Yard y=new Yard();
+		Train t1=new Train("UP4053");
+		y.addTrain(t1);
+		Train t2=new Train("DN3021");
+		y.addTrain(t2);
+		Train t3=new Train("DN4067");
+		y.addTrain(t3);
+		Train t4=new Train("UP1025");
+		y.addTrain(t4);
+		Train t5=new Train("UP2024");
+		y.addTrain(t5);
+		
+
+		y.displayTrainDetails();	
+		y.removeTrain(t4);
+		y.removeTrain(t5);
+		Train t6=new Train("DN3768");
+		System.out.println("Is train 4(UP1025) Present:"+y.isTrainPresent(t4));
+		System.out.println("Is train 6(DN3768) Present:"+y.isTrainPresent(t6));
+		System.out.println("Count of Trains in the Yard:"+y.countOfTrains());
+	}
+}
+
+
+//Yard Class
+package i3.logic;
+import java.util.ArrayList;
+public class Yard {
+	//This id declaration and initialization of ArrayList
+		private ArrayList<Train> listOfTrain=new ArrayList<Train>();
+        public void addTrain(Train t) {
+        		this.listOfTrain.add(t);
+        }
+        public void removeTrain(Train t) {
+        	this.listOfTrain.remove(t);
+	    }
+        public void displayTrainDetails() {
+		for(int i=0;i<this.listOfTrain.size();i++) {
+			Train t=listOfTrain.get(i);
+			listOfTrain.get(i).displayDetails();
+			System.out.println(isTrainPresent(t));
+		   }	
+	    }
+        public boolean isTrainPresent(Train t) {
+        	return listOfTrain.contains(t);
+        }
+        public int countOfTrains() {
+        	return listOfTrain.size();
+        }
+
+}
+//Train Class
+package i3.logic;
+
+public class Train {
+  private String TrainNo;
+  public Train(String TrainNo) {
+	  this.TrainNo=TrainNo;
+  }
+  public void displayDetails() {
+	  System.out.println("Train No: "+this.TrainNo);
+  }
+
+  
+}
