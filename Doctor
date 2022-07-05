@@ -1,0 +1,81 @@
+public class Patient extends Person{
+    private int patientId;
+	public Patient(String name, int patientId) {
+		super(name);
+		this.patientId = patientId;
+	}
+	public int getPatientId() {
+		return patientId;
+	}
+	public void displayPatientDetails() {
+		System.out.println("========================================================");
+		super.displayName();
+		System.out.println("Patient ID: "+this.getPatientId());
+		System.out.println("========================================================");
+	}
+}
+public class Bill {
+	private static int billNoGenerator=1;
+	private int billNo;
+	private int billingAmount;
+    private Doctor doctor;
+    private Patient patient;
+	public Bill(Doctor doctor,Patient patient) {
+		this.doctor=doctor;
+		this.patient=patient;
+		this.billNo = billNoGenerator;
+		billNoGenerator++;	
+	}
+	public int getBillingAmount(){
+		return this.doctor.getVisitFee();
+	}
+	public void displayBillDetails() {
+		System.out.println("========================================================");
+		System.out.println("Bill No:"+this.billNo);
+		System.out.println("Patient Name:"+patient.getName());
+		System.out.println("Doctor Name:"+doctor.getName());
+		System.out.println("Billing Amount:"+getBillingAmount());
+		System.out.println("========================================================");
+	}
+}
+
+
+
+
+
+public class Doctor extends Person {
+	private String speciality;
+	private int visitFee;
+	public Doctor(String name, String speciality, int visitFee) {
+		super(name);
+		this.speciality = speciality;
+		this.visitFee = visitFee;
+	}
+	public String getSpeciality() {
+		return this.speciality;
+	}
+	public int getVisitFee() {
+		return this.visitFee;
+	}
+	public void displayDoctorDetails() {
+		System.out.println("========================================================");
+		super.displayName();
+		System.out.println("Speciality:" + this.speciality);
+		System.out.println("Visit Fee :" + this.visitFee);
+		System.out.println("========================================================");
+	}
+}
+public class Person {
+	private String name;
+
+	public Person(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return this.name;
+	}
+	public void displayName() {
+		System.out.println("Name:" + this.name);
+	}
+
+}
